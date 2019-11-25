@@ -1,15 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
 
 namespace SingleResponsibility
 {
-    class Program
+    public class Journal
     {
-        static void Main(string[] args)
+        private readonly List<string> entries
+            = new List<string>();
+        private static int count = 0;
+        public int AddEntry(string text)
         {
+            entries.Add($"{++count}: {text}");
+            return count;
+        }
+        public void RemoveEntry(int index)
+        {
+            entries.RemoveAt(index);
+        }
+
+        public override string ToString()
+        {
+            return string.Join(
+                Environment.NewLine, entries);
+        }
+        /* SIngle responsibility
+        public void Save(string fileName)
+        {
+            File.WriteAllText(fileName, ToString());
+        }
+        public static Journal Load(string fileName)
+        {
+
+        }
+        public void Load(Uri uri)
+        {
+        }
+        */
+
+    }
+    public class Persistence
+    {
+        public void SaveToFle(Journal j, string fileName, bool overwrite)
+        {
+            if (overwrite || !File.Exists(fileName))
+            {
+                using (StreamWriter sw = File.AppendText(fileName))
+                {
+                    sw.WriteLine(j.ToString());
+                }
+                    
+            }
+        }
+    }
+
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Journal j = new Journal();
+            j.AddEntry("I cried today");
+            j.AddEntry("I ate a bug");
+            Console.WriteLine(j);
+
+
+            Persistence p = new Persistence();
+            string fileName = @"C:\journal.txt";
+            p.SaveToFle(j, fileName, true);
+            Process.Start(fileName);
+            Console.ReadKey();
         }
     }
 }
