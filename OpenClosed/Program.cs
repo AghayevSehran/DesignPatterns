@@ -4,6 +4,7 @@ namespace OpenClosed
 {
     internal class Program
     {
+       // Objects or entities should be open for extension, but closed for modification.
         private static void Main(string[] args)
         {
             Product apple = new Product("Apple", Color.Green, Size.Small);
