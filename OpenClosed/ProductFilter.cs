@@ -18,7 +18,7 @@ namespace OpenClosed
                 }
             }
         }
-        public  IEnumerable<Product> FilterByColoe(IEnumerable<Product> products, Color color)
+        public  IEnumerable<Product> FilterByColor(IEnumerable<Product> products, Color color)
         {
             foreach (var p in products)
             {

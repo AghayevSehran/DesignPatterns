@@ -15,7 +15,7 @@ namespace OpenClosed
             Console.WriteLine("Green products (old):");
             //Every time for creating new filter we have to change the ProductFilter class
              
-            foreach (Product item in pf.FilterByColoe(products, Color.Green))
+            foreach (Product item in pf.FilterByColor(products, Color.Green))
             {
                 Console.WriteLine($" - {item.Name} is green");
             }
